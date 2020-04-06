@@ -1,6 +1,6 @@
 {
   "name": "styled-cli-table",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Terminal table rendering library with cascading styles and open to extend architecture",
   "type": "module",
   "scripts": {
