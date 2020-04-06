@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "strict": true,
+        "declaration": true
+    },
+    "include": [
+        "../lib/**/*"
+    ]
+}
