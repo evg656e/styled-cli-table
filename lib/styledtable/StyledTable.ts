@@ -40,16 +40,6 @@ export interface TopLevelStyles extends Styles {
     cells?: CellStyles
 }
 
-function coerceStyle(styles: Styles | FunctionalRowStyles | FunctionalCellStyles | undefined, part: Row, [index, revIndex]: typeof rowIndicies, pass?: boolean): Styles | FunctionalRowStyles | FunctionalCellStyles | undefined;
-function coerceStyle(styles: Styles | FunctionalRowStyles | FunctionalCellStyles | undefined, part: Cell, [index, revIndex]: typeof rowIndicies | typeof columnIndicies, pass?: boolean): Styles | FunctionalRowStyles | FunctionalCellStyles | undefined;
-function coerceStyle(styles: any, part: any, [index, revIndex]: any, pass?: any) {
-    if (styles === undefined)
-        return;
-    if (typeof styles === 'function')
-        return pass ? styles : styles(part);
-    return styles[part[index]] ?? styles[part[revIndex]];
-}
-
 export class StyledTable {
     data: Data;
     style: Style;
@@ -104,3 +94,13 @@ interface PartialStyledCell extends Cell {
 
 const rowIndicies = ['rowIndex', 'reverseRowIndex'] as const;
 const columnIndicies = ['columnIndex', 'reverseColumnIndex'] as const;
+
+function coerceStyle(styles: Styles | FunctionalRowStyles | FunctionalCellStyles | undefined, part: Row, [index, revIndex]: typeof rowIndicies, pass?: boolean): Styles | FunctionalRowStyles | FunctionalCellStyles | undefined;
+function coerceStyle(styles: Styles | FunctionalRowStyles | FunctionalCellStyles | undefined, part: Cell, [index, revIndex]: typeof rowIndicies | typeof columnIndicies, pass?: boolean): Styles | FunctionalRowStyles | FunctionalCellStyles | undefined;
+function coerceStyle(styles: any, part: any, [index, revIndex]: any, pass?: any) {
+    if (styles === undefined)
+        return;
+    if (typeof styles === 'function')
+        return pass ? styles : styles(part);
+    return styles[part[index]] ?? styles[part[revIndex]];
+}

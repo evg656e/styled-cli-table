@@ -2,12 +2,18 @@
 
 Terminal table rendering library with cascading style system and open to extend architecture.
 
+## Install
+
+```console
+npm i styled-cli-table
+```
+
 ## Overview by examples
 
 Usage:
 ```js
 import { RenderedStyledTable } from 'styled-cli-table/module/precomposed/RenderedStyledTable'; 
-import { border, single } from 'styled-cli-table/module/styles/border'; // for CommonJS replace 'module' to 'commonjs' in path
+import { border, single } from 'styled-cli-table/module/styles/border'; // for CommonJS usage replace 'module' to 'commonjs' in path
 
 const data = [
     ['#', 'name', 'price', 'quantity', 'total'],
@@ -47,7 +53,7 @@ for (const line of table.render()) {
 ```
 
 Output:
-```
+```console
 ┌───┬────────┬───────┬──────────┬─────────┐
 │ # │  name  │ price │ quantity │  total  │
 ├───┼────────┼───────┼──────────┼─────────┤
@@ -58,6 +64,7 @@ Output:
 │ 3 │ lemon  │ 1.5   │ 3        │ 4.5     │
 └───┴────────┴───────┴──────────┴─────────┘
 ```
+
 
 Vertical styles work as well:
 ```js
@@ -86,7 +93,7 @@ const styles = {
 ```
 
 Output:
-```
+```console
 ┌───┬──────────────┬───────┬──────────┬───────┐
 │   │              │       │          │       │
 │ # │     name     │ price │ quantity │ total │
@@ -126,7 +133,7 @@ const styles = {
 ```
 
 Output:
-```
+```console
 ┌───┬────────┬───────┬──────────┬───────┐
 │ # │  name  │ price │ quantity │ total │
 ├───┼────────┼───────┼──────────┼───────┤
@@ -166,7 +173,7 @@ const styles = {
 ```
 
 Output:
-```
+```console
 ┌─────┬──────────┬─────────┬────────────┬─────────┐
 │ '#' │  'name'  │ 'price' │ 'quantity' │ 'total' │
 ├─────┼──────────┼─────────┼────────────┼─────────┤
@@ -428,7 +435,7 @@ Accepts the subclass of `AbstractPrintLineBuffer` (e.g. `PrintLineBuffer` or `Br
 
 Computes the height and width of cells depending on the content. You can specify a fixed width or height using `width` and `height` styles respectively. You can specify a fixed range of width or height using styles `minWidth`, `maxWidth`, `minHeight` and `maxHeight` respectively. Usually this mixin should be used immediately after `GenericBufferedRenderer`.
 
-### `PaddingRenderer`
+#### `PaddingRenderer`
 
 Adds horizontal and vertical paddings. You can set paddings explicitly by setting `paddingTop`, `paddingRight`, `paddingBottom` or `paddingLeft` properties, or by using a helper `padding` function:
 
@@ -440,11 +447,11 @@ const styles = {
 };
 ```
 
-### `AlignRenderer`
+#### `AlignRenderer`
 
 Aligns the content horizontally and vertically. To align the content horizontally set `align` property to `left`, `center` or `right`. To align the content vertically set `verticallyAlign` property to `top`, `middle` or `bottom`.
 
-### `BorderRenderer`
+#### `BorderRenderer`
 
 Renders borders around cells. You can set borders explicitly by setting `borderTop`, `borderRight`, `borderBottom` or `borderLeft` properties, or by using a helper `border` function. It is also necessary to explicitly set the border characters by specifiyng `borderCharacters` proprty, otherwise the borders will not be displayed. The library provides two character sets by default: `single` and `double`:
 
@@ -474,7 +481,7 @@ const styles = {
 };
 ```
 
-### `ColorRenderer` and `BackgroundColorRenderer`
+#### `ColorRenderer` and `BackgroundColorRenderer`
 
 Allows you to apply [terminal styles](https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color) for the entire cell (`BackgroundColorRenderer`) or for the content only (`ColorRenderer`). To set whole cell style use `backgroundColor` property. To set only content style use `color` property. Predefined terminal styles can be found inside `styles/color` module:
 
@@ -584,7 +591,7 @@ console.log(table.toString());
 
 Output:
 
-```
+```console
 ┌───┬────────┬───────┬──────────┬───────┐
 │ # │  name  │ price │ quantity │ total │
 ├───┼────────┼───────┼──────────┼───────┤
