@@ -88,7 +88,7 @@ const styles = {
             height: 3, // fixed row height
             verticalAlign: 'bottom'
         }
-    },
+    }
 };
 ```
 
@@ -199,7 +199,7 @@ const styles = {
             align: 'center',
             color: color.yellow
         }
-    },
+    }
 };
 
 const table = new ColorRenderedStyledTable(data, styles);
@@ -449,7 +449,7 @@ const styles = {
 
 #### `AlignRenderer`
 
-Aligns the content horizontally and vertically. To align the content horizontally set `align` property to `left`, `center` or `right`. To align the content vertically set `verticallyAlign` property to `top`, `middle` or `bottom`.
+Aligns the content horizontally and vertically. To align the content horizontally set `align` property to `left`, `center` or `right`. To align the content vertically set `verticallAlign` property to `top`, `middle` or `bottom`.
 
 #### `BorderRenderer`
 
@@ -470,7 +470,7 @@ You can create your own sets by using the `borderCharacters` function:
 import { border, borderCharacters } from 'styled-cli-table/module/styles/border';
 
 const styles = {
-    ...border(true), // expands to { borderTop: true, borderRight: true, borderBottom: true, borderLeft: true }
+    ...border(true),
     borderCharacters: borderCharacters(
         '═', '═', '─',
         '║', '║', '│',
@@ -494,7 +494,7 @@ const styles = {
 };
 ```
 
-These mixins should be chained with `BreakPrintLineBuffer`.
+These mixins should be use with `BreakPrintLineBuffer`.
 
 ### Composing renderers
 
