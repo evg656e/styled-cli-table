@@ -604,3 +604,63 @@ Output:
 │ 3 │ stra.. │ 3     │ 3        │ 9     │
 └───┴────────┴───────┴──────────┴───────┘
 ```
+
+### Browser usage example
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>styled-cli-table example</title>
+</head>
+
+<body>
+    <pre id="output"></pre>
+
+    <script type="module">
+        import { RenderedStyledTable } from 'https://unpkg.com/styled-cli-table/module/precomposed/RenderedStyledTable.js';
+        import { border, single } from 'https://unpkg.com/styled-cli-table/module/styles/border.js';
+
+        const data = [
+            ['#', 'name', 'price', 'quantity', 'total'],
+            [1, 'apple', 2, 3, 6],
+            [2, 'banana', 1, 10, 10],
+            [3, 'lemon', 1.5, 3, 4.5]
+        ];
+
+        const styles = {
+            ...border(true),
+            borderCharacters: single,
+            paddingLeft: 1, paddingRight: 1,
+            rows: {
+                0: {
+                    align: 'center'
+                }
+            },
+            columns: {
+                1: {
+                    minWidth: 6, maxWidth: 12
+                },
+                [-1]: {
+                    width: 9
+                }
+            }
+        };
+
+        const table = new RenderedStyledTable(data, styles);
+
+        const output = document.querySelector('#output');
+
+        for (const line of table.render()) {
+            output.appendChild(document.createTextNode(line));
+            output.appendChild(document.createElement('br'));
+            console.log(line); // echoing
+        }
+    </script>
+</body>
+
+</html>
+```
