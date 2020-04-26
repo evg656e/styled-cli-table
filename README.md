@@ -1,5 +1,7 @@
 # styled-cli-table
 
+[![npm](https://img.shields.io/npm/v/styled-cli-table.svg)](https://www.npmjs.com/package/styled-cli-table)
+
 Terminal table rendering library with cascading style system and open to extend architecture.
 
 ## Install
@@ -12,8 +14,8 @@ npm i styled-cli-table
 
 Usage:
 ```js
-import { RenderedStyledTable } from 'styled-cli-table/module/precomposed/RenderedStyledTable'; 
-import { border, single } from 'styled-cli-table/module/styles/border'; // for CommonJS usage replace 'module' to 'commonjs' in path
+import { RenderedStyledTable } from 'styled-cli-table/module/precomposed/RenderedStyledTable.js'; 
+import { border, single } from 'styled-cli-table/module/styles/border.js'; // for CommonJS usage replace 'module' to 'commonjs' in path
 
 const data = [
     ['#', 'name', 'price', 'quantity', 'total'],
@@ -185,8 +187,8 @@ Output:
 
 Terminal color styling supported by seperate class:
 ```js
-import { ColorRenderedStyledTable } from 'styled-cli-table/module/precomposed/ColorRenderedStyledTable';
-import * as color from 'styled-cli-table/module/styles/color';
+import { ColorRenderedStyledTable } from 'styled-cli-table/module/precomposed/ColorRenderedStyledTable.js';
+import * as color from 'styled-cli-table/module/styles/color.js';
 
 const styles = {
     ...border(true),
@@ -239,7 +241,7 @@ const styles = {
 
 To create cascading styles the `Style` class is used:
 ```js
-import { Style } from 'styled-cli-table/module/styledtable/Style';
+import { Style } from 'styled-cli-table/module/styledtable/Style.js';
 
 const style = new Style();
 style.push({ // initial styles
@@ -270,7 +272,7 @@ The `StyledTable` class allows to iterate through tabular data (wich are two-dim
 There are four levels of cascade (from low priority to high): table, columns, rows and cells.
 
 ```js
-import { StyledTable } from 'styled-cli-table/module/styledtable/StyledTable';
+import { StyledTable } from 'styled-cli-table/module/styledtable/StyledTable.js';
 
 const data = [
     ['#', 'name', 'price', 'quantity', 'total'],
@@ -344,8 +346,8 @@ const styles = {
 The printlines are some sort of mutable strings with predefined length. `printline` module provides two kind of printlines: `PrintLine` which is basic printline and `BreakPrintLine`, which adds another layer of line breaks (can be used to add terminal styles for example).
 
 ```js
-import { PrintLine } from 'styled-cli-table/module/printline/PrintLine';
-import { BreakPrintLine } from 'styled-cli-table/module/printline/BreakPrintLine';
+import { PrintLine } from 'styled-cli-table/module/printline/PrintLine.js';
+import { BreakPrintLine } from 'styled-cli-table/module/printline/BreakPrintLine.js';
 
 const line = new PrintLine(10, '.'); // width and space character
 line.fill(5, 'bb');
@@ -364,7 +366,7 @@ console.log(line2.join()); // 'aaa..<i>bb</i>...'
 The `AbstractPrintLineBuffer` class allows to allocate some number of underlying printlines, fill them and consume filled lines on demand. There are two predifined buffers: `PrintLineBuffer` and `BreakPrintLineBuffer`.
 
 ```js
-import { PrintLineBuffer } from 'styled-cli-table/module/printline/PrintLineBuffer';
+import { PrintLineBuffer } from 'styled-cli-table/module/printline/PrintLineBuffer.js';
 
 const buffer = new PrintLineBuffer('.');
 
@@ -440,7 +442,7 @@ Computes the height and width of cells depending on the content. You can specify
 Adds horizontal and vertical paddings. You can set paddings explicitly by setting `paddingTop`, `paddingRight`, `paddingBottom` or `paddingLeft` properties, or by using a helper `padding` function:
 
 ```js
-import { padding } from 'styled-cli-table/module/styles/padding';
+import { padding } from 'styled-cli-table/module/styles/padding.js';
 
 const styles = {
     ...padding(0, 1) // expands to { paddingTop: 0, paddingRight: 1, paddingBottom: 0, paddingLeft: 1 }
@@ -456,7 +458,7 @@ Aligns the content horizontally and vertically. To align the content horizontall
 Renders borders around cells. You can set borders explicitly by setting `borderTop`, `borderRight`, `borderBottom` or `borderLeft` properties, or by using a helper `border` function. It is also necessary to explicitly set the border characters by specifiyng `borderCharacters` proprty, otherwise the borders will not be displayed. The library provides two character sets by default: `single` and `double`:
 
 ```js
-import { border, single } from 'styled-cli-table/module/styles/border';
+import { border, single } from 'styled-cli-table/module/styles/border.js';
 
 const styles = {
     ...border(true), // expands to { borderTop: true, borderRight: true, borderBottom: true, borderLeft: true }
@@ -467,7 +469,7 @@ const styles = {
 You can create your own sets by using the `borderCharacters` function:
 
 ```js
-import { border, borderCharacters } from 'styled-cli-table/module/styles/border';
+import { border, borderCharacters } from 'styled-cli-table/module/styles/border.js';
 
 const styles = {
     ...border(true),
@@ -486,7 +488,7 @@ const styles = {
 Allows you to apply [terminal styles](https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color) for the entire cell (`BackgroundColorRenderer`) or for the content only (`ColorRenderer`). To set whole cell style use `backgroundColor` property. To set only content style use `color` property. Predefined terminal styles can be found inside `styles/color` module:
 
 ```js
-import * as color from 'styled-cli-table/module/styles/color';
+import * as color from 'styled-cli-table/module/styles/color.js';
 
 const styles = {
     backgroundColor: color.bgYellow,
@@ -501,9 +503,9 @@ These mixins should be use with `BreakPrintLineBuffer`.
 You can compose renderers by chaining mixin functions and providing printline buffer to break the chain, e.g.:
 
 ```js
-import { PrintLineBuffer } from 'styled-cli-table/module/printline/PrintLineBuffer';
-import { BorderRenderer, FlexSizeRenderer, GenericBufferedRenderer } from 'styled-cli-table/module/renderers/index';
-import { StyledTable } from 'styled-cli-table/module/styledtable';
+import { PrintLineBuffer } from 'styled-cli-table/module/printline/PrintLineBuffer.js';
+import { BorderRenderer, FlexSizeRenderer, GenericBufferedRenderer } from 'styled-cli-table/module/renderers/index.js';
+import { StyledTable } from 'styled-cli-table/module/styledtable/StyledTable.js';
 
 const CustomRenderer = BorderRenderer(FlexSizeRenderer(GenericBufferedRenderer(PrintLineBuffer)));
 const renderer = new CustomRenderer();
@@ -514,9 +516,9 @@ console.log(renderer.toString(table));
 To simplify creation and usage of renderers, `GenericRenderedStyledTable` function is provided. It accepts the base class as first parameter, and one or more mixins functions as rest, chains them internally and returns new class that can be used to create and render tabular data:
 
 ```js
-import { PrintLineBuffer } from 'styled-cli-table/module/printline/PrintLineBuffer';
-import { BorderRenderer, FlexSizeRenderer, GenericBufferedRenderer } from 'styled-cli-table/module/renderers/index';
-import { GenericRenderedStyledTable } from 'styled-cli-table/module/composable/ComposableRenderedStyledTable';
+import { PrintLineBuffer } from 'styled-cli-table/module/printline/PrintLineBuffer.js';
+import { BorderRenderer, FlexSizeRenderer, GenericBufferedRenderer } from 'styled-cli-table/module/renderers/index.js';
+import { GenericRenderedStyledTable } from 'styled-cli-table/module/composable/ComposableRenderedStyledTable.js';
 
 const CustomStyledTable = GenericRenderedStyledTable(
     PrintLineBuffer,
@@ -532,10 +534,10 @@ console.log(table.toString());
 ### Creating your own renderers
 
 ```js
-import { PrintLineBuffer } from 'styled-cli-table/module/printline/PrintLineBuffer';
-import { BorderRenderer, PaddingRenderer, AlignRenderer, FlexSizeRenderer, GenericBufferedRenderer } from 'styled-cli-table/module/renderers/index';
-import { ComposableRenderedStyledTable } from 'styled-cli-table/module/composable/ComposableRenderedStyledTable';
-import { border, single } from 'styled-cli-table/module/styles';
+import { PrintLineBuffer } from 'styled-cli-table/module/printline/PrintLineBuffer.js';
+import { BorderRenderer, PaddingRenderer, AlignRenderer, FlexSizeRenderer, GenericBufferedRenderer } from 'styled-cli-table/module/renderers/index.js';
+import { ComposableRenderedStyledTable } from 'styled-cli-table/module/composable/ComposableRenderedStyledTable.js';
+import { border, single } from 'styled-cli-table/module/styles/border.js';
 
 function PrettyCropRenderer(BufferedRenderer) {
     return class extends BufferedRenderer {

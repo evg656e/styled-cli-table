@@ -3,6 +3,12 @@
     "compilerOptions": {
         "target": "es2019",
         "module": "es2015",
-        "outDir": "../module"
+        "outDir": "../module",
+        "plugins": [
+            {
+                "transform": "@zoltu/typescript-transformer-append-js-extension/output/index.js",
+                "after": true,
+            }
+        ]
     }
 }

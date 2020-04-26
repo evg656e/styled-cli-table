@@ -1,16 +1,16 @@
 {
   "name": "styled-cli-table",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "Terminal table rendering library with cascading styles and open to extend architecture",
   "type": "module",
   "scripts": {
     "clean:commonjs": "rimraf commonjs",
     "build:commonjs": "npm run clean:commonjs && tsc --project config/tsconfig.commonjs.json && copyfiles -u 1 \"lib/**/*.d.ts\" commonjs && copyfiles -u 1 config/package.commonjs.json commonjs && node scripts/rename.js commonjs/package.commonjs.json commonjs/package.json",
     "clean:module": "rimraf module",
-    "build:module": "npm run clean:module && tsc --project config/tsconfig.module.json && copyfiles -u 1 \"lib/**/*.d.ts\" module",
+    "build:module": "npm run clean:module && ttsc --project config/tsconfig.module.json && copyfiles -u 1 \"lib/**/*.d.ts\" module",
     "clean": "rimraf commonjs module",
     "build": "npm run build:commonjs && npm run build:module",
-    "test": "cross-env TS_NODE_PROJECT=config/tsconfig.test.json node --experimental-specifier-resolution=node --harmony-optional-chaining --harmony-nullish --require ts-node/register node_modules/mocha/bin/mocha --extension ts"
+    "test": "cross-env TS_NODE_PROJECT=config/tsconfig.test.json node --harmony-optional-chaining --harmony-nullish --require ts-node/register node_modules/mocha/bin/mocha --extension ts"
   },
   "repository": {
     "type": "git",
@@ -32,12 +32,14 @@
   "homepage": "https://github.com/evg656e/styled-cli-table#readme",
   "devDependencies": {
     "@types/mocha": "^7.0.2",
-    "@types/node": "^13.11.0",
+    "@types/node": "^13.13.2",
+    "@zoltu/typescript-transformer-append-js-extension": "^1.0.1",
     "copyfiles": "^2.2.0",
     "cross-env": "^7.0.2",
-    "mocha": "^7.1.1",
+    "mocha": "^7.1.2",
     "rimraf": "^3.0.2",
-    "ts-node": "^8.8.2",
+    "ts-node": "^8.9.1",
+    "ttypescript": "^1.5.10",
     "typescript": "^3.8.3"
   },
   "files": [
