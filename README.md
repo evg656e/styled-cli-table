@@ -605,6 +605,32 @@ Output:
 └───┴────────┴───────┴──────────┴───────┘
 ```
 
+The same in Typescript:
+```ts
+import { PrintLineBuffer } from 'styled-cli-table/module/printline/PrintLineBuffer';
+import { BorderRenderer, PaddingRenderer, AlignRenderer, FlexSizeRenderer, GenericBufferedRenderer } from 'styled-cli-table/module/renderers/index';
+import { ComposableRenderedStyledTable } from 'styled-cli-table/module/composable/ComposableRenderedStyledTable';
+import { border, single } from 'styled-cli-table/module/styles/index';
+import type { AbstractPrintLineBuffer } from 'styled-cli-table/module/printline/AbstractPrintLineBuffer';
+import type { ComputedCellStyles } from 'styled-cli-table/module/renderers/AbstractBufferedRenderer';
+import type { StyledCell } from 'styled-cli-table/module/styledtable/StyledTable';
+import type { Constructor } from 'styled-cli-table/module/util/Constructor';
+
+function PrettyCropRenderer<TBuffer extends AbstractPrintLineBuffer>(BufferedRenderer: Constructor<FlexSizeRenderer<TBuffer>>) {
+    return class extends BufferedRenderer {
+        fillLine(buffer: TBuffer, x: number, y: number, content: string, width: number, cell: StyledCell, computedStyles: ComputedCellStyles) {
+            super.fillLine(buffer, x, y, crop(content, width, cell.style.get('crop')), width, cell, computedStyles);
+        }
+    };
+}
+
+function crop(content: string, width: number, cropString = '') {
+    return content.length > width ?
+        content.substring(0, width - cropString.length) + cropString :
+        content;
+}
+```
+
 ### Browser usage example
 
 ```html

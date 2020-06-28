@@ -10,7 +10,7 @@ export interface AlignComputedCellStyles extends ComputedCellStyles {
     align: number;
 }
 
-export function AlignRenderer<TBuffer extends AbstractPrintLineBuffer<any>>(BufferedRenderer: Constructor<FlexSizeRenderer<TBuffer>>) {
+export function AlignRenderer<TBuffer extends AbstractPrintLineBuffer>(BufferedRenderer: Constructor<FlexSizeRenderer<TBuffer>>) {
     return class extends BufferedRenderer {
         fillLine(buffer: TBuffer, x: number, y: number, content: string, width: number, cell: StyledCell, computedStyles: AlignComputedCellStyles) {
             const offset = getOffset(computedStyles.align, content.length, width);

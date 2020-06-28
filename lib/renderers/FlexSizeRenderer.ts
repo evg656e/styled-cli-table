@@ -5,8 +5,15 @@ import type { StyledCell, IterableRow } from '../styledtable/StyledTable';
 import type { ComputedRowStyles, ComputedColumnStyles, ComputedCellStyles } from './AbstractBufferedRenderer';
 import type { GenericBufferedRenderer } from './GenericBufferedRenderer';
 
-export function FlexSizeRenderer<TBuffer extends AbstractPrintLineBuffer<any>>(BufferedRenderer: Constructor<GenericBufferedRenderer<TBuffer>>) {
-    return class extends BufferedRenderer {
+export interface FlexSizeRenderer<TBuffer extends AbstractPrintLineBuffer> extends GenericBufferedRenderer<TBuffer> {
+    computeContentWidth(content: any, cell: StyledCell): number;
+    copmuteContentHeight(content: any, cell: StyledCell): number;
+    computeColumnWidth(content: any, cell: StyledCell): number;
+    computeRowHeight(content: any, cell: StyledCell) : number;
+}
+
+export function FlexSizeRenderer<TBuffer extends AbstractPrintLineBuffer>(BufferedRenderer: Constructor<GenericBufferedRenderer<TBuffer>>) {
+    return class extends BufferedRenderer implements FlexSizeRenderer<TBuffer> {
         computeContentWidth(content: any, _: StyledCell) {
             if (Array.isArray(content)) {
                 let ret = 0;
@@ -56,6 +63,3 @@ export function FlexSizeRenderer<TBuffer extends AbstractPrintLineBuffer<any>>(B
         }
     };
 }
-
-export type FlexSizeRenderer<TBuffer extends AbstractPrintLineBuffer<any>> =
-    InstanceType<ReturnType<typeof FlexSizeRenderer>> & GenericBufferedRenderer<TBuffer>;

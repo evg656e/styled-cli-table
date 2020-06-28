@@ -5,7 +5,7 @@ import type { StyledCell } from '../styledtable/StyledTable';
 import type { ComputedCellStyles } from './AbstractBufferedRenderer';
 import type { FlexSizeRenderer } from './FlexSizeRenderer';
 
-export function PaddingRenderer<TBuffer extends AbstractPrintLineBuffer<any>>(BufferedRenderer: Constructor<FlexSizeRenderer<TBuffer>>) {
+export function PaddingRenderer<TBuffer extends AbstractPrintLineBuffer>(BufferedRenderer: Constructor<FlexSizeRenderer<TBuffer>>) {
     return class extends BufferedRenderer {
         computeContentWidth(content: any, cell: StyledCell) {
             const { paddingLeft, paddingRight } = cell.style.pick(['paddingLeft', 'paddingRight']);

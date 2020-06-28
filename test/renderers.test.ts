@@ -1,5 +1,5 @@
 import { strictEqual } from 'assert';
-import { StyledTable, Data, TopLevelStyles } from '../lib/styledtable/StyledTable';
+import { StyledTable, Data, TopLevelStyles, StyledCell } from '../lib/styledtable/StyledTable';
 import { PrintLineBuffer } from '../lib/printline/PrintLineBuffer';
 import { GenericBufferedRenderer } from '../lib/renderers/GenericBufferedRenderer';
 import { BreakPrintLineBuffer } from '../lib/printline/BreakPrintLineBuffer';
@@ -12,6 +12,9 @@ import { BackgroundColorRenderer } from '../lib/renderers/BackgroundColorRendere
 import { padding } from '../lib/styles/padding';
 import { border, single, borderCharacters } from '../lib/styles/border';
 import * as color from '../lib/styles/color';
+import type { AbstractPrintLineBuffer } from '../lib/printline/AbstractPrintLineBuffer';
+import type { ComputedCellStyles } from '../lib/renderers/AbstractBufferedRenderer';
+import type { Constructor } from '../lib/util/Constructor';
 
 describe('renderers', () => {
     const dotSpace = {
@@ -770,6 +773,67 @@ describe('renderers', () => {
                     ...dotSpace
                 }
             ]
+        ] as [string, Data, string[], TopLevelStyles][]).forEach(([title, data, result, styles]) => {
+            it(title, () => {
+                strictEqual(new Renderer().toString(new StyledTable(data, styles)), result.join('\n'));
+            });
+        });
+    });
+
+    describe('PrettyCropRenderer', () => {
+        function PrettyCropRenderer<TBuffer extends AbstractPrintLineBuffer>(BufferedRenderer: Constructor<FlexSizeRenderer<TBuffer>>) {
+            return class extends BufferedRenderer {
+                fillLine(buffer: TBuffer, x: number, y: number, content: string, width: number, cell: StyledCell, computedStyles: ComputedCellStyles) {
+                    super.fillLine(buffer, x, y, crop(content, width, cell.style.get('crop')), width, cell, computedStyles);
+                }
+            };
+        }
+
+        function crop(content: string, width: number, cropString = '') {
+            return content.length > width ?
+                content.substring(0, width - cropString.length) + cropString :
+                content;
+        }
+
+        const Renderer = BorderRenderer(PaddingRenderer(PrettyCropRenderer(AlignRenderer(FlexSizeRenderer(GenericBufferedRenderer(PrintLineBuffer))))));
+
+        ([
+            [
+                'crop',
+                [
+                    ['#', 'name', 'price', 'quantity', 'total'],
+                    [1, 'apple', 2, 3, 6],
+                    [2, 'banana', 1, 10, 10],
+                    [3, 'strawberry', 3, 3, 9]
+                ],
+                [
+                    '┌───┬────────┬───────┬──────────┬───────┐',
+                    '│ # │  name  │ price │ quantity │ total │',
+                    '├───┼────────┼───────┼──────────┼───────┤',
+                    '│ 1 │ apple  │ 2     │ 3        │ 6     │',
+                    '├───┼────────┼───────┼──────────┼───────┤',
+                    '│ 2 │ banana │ 1     │ 10       │ 10    │',
+                    '├───┼────────┼───────┼──────────┼───────┤',
+                    '│ 3 │ stra.. │ 3     │ 3        │ 9     │',
+                    '└───┴────────┴───────┴──────────┴───────┘',
+                ],
+                {
+                    ...border(true),
+                    borderCharacters: single,
+                    paddingLeft: 1, paddingRight: 1,
+                    crop: '..',
+                    rows: {
+                        0: {
+                            align: 'center'
+                        }
+                    },
+                    columns: {
+                        1: {
+                            width: 8
+                        }
+                    }
+                }
+            ],
         ] as [string, Data, string[], TopLevelStyles][]).forEach(([title, data, result, styles]) => {
             it(title, () => {
                 strictEqual(new Renderer().toString(new StyledTable(data, styles)), result.join('\n'));
