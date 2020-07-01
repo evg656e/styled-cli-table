@@ -1,7 +1,7 @@
 {
   "name": "styled-cli-table",
-  "version": "1.2.1",
-  "description": "Terminal table rendering library with cascading styles and open to extend architecture",
+  "version": "1.2.2",
+  "description": "Terminal table rendering library with cascading styles and composable architecture",
   "type": "module",
   "scripts": {
     "clean:commonjs": "rimraf commonjs",
@@ -33,14 +33,14 @@
   "devDependencies": {
     "@types/mocha": "^7.0.2",
     "@types/node": "^14.0.14",
-    "@zoltu/typescript-transformer-append-js-extension": "^1.0.1",
+    "@evg656e/typescript-transformer-append-js-extension": "^1.0.2",
     "copyfiles": "^2.3.0",
     "cross-env": "^7.0.2",
     "mocha": "^8.0.1",
     "rimraf": "^3.0.2",
     "ts-node": "^8.10.2",
     "ttypescript": "^1.5.10",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.6"
   },
   "files": [
     "commonjs",

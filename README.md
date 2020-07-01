@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/styled-cli-table.svg)](https://www.npmjs.com/package/styled-cli-table)
 
-Terminal table rendering library with cascading style system and open to extend architecture.
+Terminal table rendering library with cascading style system and composable architecture.
 
 ## Install
 

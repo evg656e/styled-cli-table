@@ -6,8 +6,8 @@
         "outDir": "../module",
         "plugins": [
             {
-                "transform": "@zoltu/typescript-transformer-append-js-extension/output/index.js",
-                "after": true,
+                "transform": "@evg656e/typescript-transformer-append-js-extension/output/index.js",
+                "after": true
             }
         ]
     }
