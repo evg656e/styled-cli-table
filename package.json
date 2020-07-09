@@ -1,8 +1,22 @@
 {
   "name": "styled-cli-table",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "Terminal table rendering library with cascading styles and composable architecture",
   "type": "module",
+  "main": "./commonjs/index.js",
+  "module": "./module/index.js",
+  "exports": {
+    "./module/": "./module/",
+    "./commonjs/": "./commonjs/",
+    "./": {
+      "import": "./module/",
+      "require": "./commonjs/"
+    },
+    ".": {
+      "import": "./module/index.js",
+      "require": "./commonjs/index.js"
+    }
+  },
   "scripts": {
     "clean:commonjs": "rimraf commonjs",
     "build:commonjs": "npm run clean:commonjs && tsc --project config/tsconfig.commonjs.json && copyfiles -u 1 \"lib/**/*.d.ts\" commonjs && copyfiles -u 1 config/package.commonjs.json commonjs && node scripts/rename.js commonjs/package.commonjs.json commonjs/package.json",
